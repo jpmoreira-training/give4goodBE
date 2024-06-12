@@ -1,19 +1,18 @@
 package com.criticalsoftware;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
+import io.quarkus.mongodb.panache.common.MongoEntity;
 import java.time.LocalDate;
 
-
+@MongoEntity(collection = "users")
 public class User extends PanacheMongoEntity {
 
     private String name;
     private LocalDate dateBirth;
     private Contact contact;
 
-
     public User() {
 
     }
-
 
     public User(String name, LocalDate dateBirth, Contact contact) {
         this.name = name;
