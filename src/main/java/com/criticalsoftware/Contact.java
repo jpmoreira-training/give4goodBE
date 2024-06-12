@@ -22,20 +22,20 @@ public class Contact extends PanacheMongoEntity {
     }
 
     //email
-    public String getemail(){
+    public String getEmail(){
         return this.email;
     }
 
-    public void setemail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
     //phoneNumber
-    public int getphoneNumber(){
+    public int getPhoneNumber(){
         return this.phoneNumber;
     }
 
-    public void setphoneNumber(int phoneNumber) {
+    public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
