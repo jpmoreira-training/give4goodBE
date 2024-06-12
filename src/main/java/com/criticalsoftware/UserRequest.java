@@ -1,19 +1,27 @@
 package com.criticalsoftware;
 
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
-import io.quarkus.mongodb.panache.common.MongoEntity;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@MongoEntity(collection = "users")
-public class User extends PanacheMongoEntity {
-
+//User Data Request
+public class UserRequest {
+    @NotBlank(message = "Name may not be blank")
     private String name;
 
+    @NotNull(message ="Date Birth is mandatory")
     private LocalDate dateBirth;
 
+    @Valid
+    @NotNull(message = "Contact is mandatory")
     private Contact contact;
 
-    public User(String name, LocalDate dateBirth, Contact contact) {
+    public UserRequest() {
+        // Não precisa necessariamente de implementação aqui
+    }
+
+    public UserRequest(String name, LocalDate dateBirth, Contact contact) {
         this.name = name;
         this.dateBirth = dateBirth;
         this.contact = contact;
