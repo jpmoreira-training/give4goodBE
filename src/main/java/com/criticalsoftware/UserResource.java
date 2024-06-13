@@ -24,7 +24,7 @@ public class UserResource {
     //It retrieves a user by its ID and returns the userResponse in the response.
     @GET
     @Path("/{id}")
-    public Response getById(@PathParam("id") String id){
+    public Response getById(@PathParam("id") String id) {
         User user = repository.findById(new ObjectId(id));
         if (user == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found.").build();
@@ -44,7 +44,7 @@ public class UserResource {
         //Creates an empty userResponse list
         List<UserResponse> userResponses = new ArrayList<>();
         //For each User, a UserResponse is created and added to the list
-        for(User user: users) {
+        for (User user : users) {
             UserResponse userResponse = new UserResponse(user.getId(), user.getName(), user.getDateBirth(), user.getContact());
             userResponses.add(userResponse);
         }
@@ -80,10 +80,7 @@ public class UserResource {
             User user = userRepository.findById(objectId);
             if (user == null) {
                 return Response.status(Response.Status.NOT_FOUND).entity("User not found.").build();
-                return Response.status(Status.NOT_FOUND).entity("User not found").build();
             }
-            UserResponse userResponse = new UserResponse(user.getId(), user.getName(), user.getDateBirth(), user.getContact());
-            return Response.ok(userResponse).build();
             userRepository.delete(user);
             return Response.noContent().build();
         } catch (IllegalArgumentException e) {
@@ -92,5 +89,6 @@ public class UserResource {
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity("An error occurred while deleting the user").build();
         }
 
+    }
 }
 
