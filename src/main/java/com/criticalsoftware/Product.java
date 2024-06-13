@@ -1,14 +1,14 @@
 package com.criticalsoftware;
-
+import org.bson.types.ObjectId;
 import java.awt.image.BufferedImage;
 
 public class Product {
 
+    private ObjectId id;
     private String description;
     private BufferedImage photo;
     private String category;
     private User user;
-
 
     public Product() {
     }
@@ -18,7 +18,6 @@ public class Product {
         this.photo = photo;
         this.category = category;
         this.user = user;
-
     }
 
     //description
@@ -57,4 +56,12 @@ public class Product {
         this.user = user;
     }
 
+    //Id
+    public ObjectId getId(){
+        return this.id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 }

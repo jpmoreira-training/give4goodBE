@@ -131,6 +131,11 @@
             <properties>
                 <skipITs>false</skipITs>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
+                <quarkus.platform.version>2.5.1.Final</quarkus.platform.version> <!-- Change this to a version that supports Maven 3.8.4 -->
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+                <java.version>17</java.version>
+
             </properties>
         </profile>
     </profiles>
