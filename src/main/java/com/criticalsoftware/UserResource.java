@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import jakarta.ws.rs.core.Response.Status;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.stream.Collectors;
 
 @Path("/users")
@@ -28,12 +27,12 @@ public class UserResource {
 
 
     @POST
-    public Response create(@Valid UserRequest userRequest) throws URISyntaxException {
+    public Response create(@Valid UserRequest userRequest)  {
         try {
             User user = new User(userRequest.getName(), userRequest.getDateBirth(), userRequest.getContact());
             repository.persist(user);
-            return Response.created(new URI("/users/" + user.id))
-                    .entity("User created successfully with ID: " + user.id)
+            return Response.created(new URI("/users/" + user.getId()))
+                    .entity("User created successfully with ID: " + user.getId())
                     .build();
         } catch (ConstraintViolationException e) {
             String errorMessages = e.getConstraintViolations().stream().map(violation -> violation.getPropertyPath() + ": " + violation.getMessage()).collect(Collectors.joining(", "));
