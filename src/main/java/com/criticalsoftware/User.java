@@ -8,9 +8,7 @@ import java.time.LocalDate;
 public class User extends PanacheMongoEntity {
 
     private String name;
-
     private LocalDate dateBirth;
-
     private Contact contact;
 
     public User(String name, LocalDate dateBirth, Contact contact) {

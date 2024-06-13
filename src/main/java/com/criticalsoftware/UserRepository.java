@@ -8,12 +8,12 @@ import java.util.List;
 @ApplicationScoped
 public class UserRepository implements PanacheMongoRepository<User> {
 
-    // Este método procura um usuário pelo campo 'name'
+    //This method searches for a user by the 'name' field
     public User findByName(String name) {
         return find("name", name).firstResult();
     }
 
-    // Este método recupera todas as entidades de User do banco de dados, ordenadas pelo campo 'name'
+    // This method retrieves all User entities from the database, sorted by the 'name' field
     public List<User> findOrderedByName() {
         return listAll(Sort.by("name"));
     }

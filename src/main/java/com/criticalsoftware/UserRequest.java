@@ -14,11 +14,11 @@ public class UserRequest {
     private LocalDate dateBirth;
 
     @Valid
-    @NotNull(message = "Contact is mandatory")
+    @NotNull(message = "Contact is mandatory" )
     private Contact contact;
 
     public UserRequest() {
-        // Não precisa necessariamente de implementação aqui
+        // It doesn't necessarily need implementation here
     }
 
     public UserRequest(String name, LocalDate dateBirth, Contact contact) {
