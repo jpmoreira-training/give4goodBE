@@ -16,17 +16,17 @@ public class UserResource {
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") String id, User user) {
+    public Response update(@PathParam("id") String id, Contact contact) {
         try {
             // Check if the id is a valid ObjectId and if the user exists
             ObjectId objectId = new ObjectId(id);
-            if (userRepository.findById(objectId) == null) {
+            User userFromDb = userRepository.findById(objectId);
+            if (userFromDb == null) {
                 return Response.status(Status.NOT_FOUND).entity("User not found").build();
             }
-
-            user.id = objectId;
-            userRepository.update(user);
-            return Response.ok(user).build();
+            userFromDb.setContact(contact); // Updates the contact information
+            userRepository.update(userFromDb); // Saves the updated user in the database
+            return Response.ok(contact).build(); // Returns the updated user information
         } catch (IllegalArgumentException e) {
             return Response.status(Status.BAD_REQUEST).entity("Invalid user ID").build();
         } catch (Exception e) {
@@ -43,7 +43,6 @@ public class UserResource {
             if (user == null) {
                 return Response.status(Status.NOT_FOUND).entity("User not found").build();
             }
-
             userRepository.delete(user);
             return Response.noContent().build();
         } catch (IllegalArgumentException e) {
