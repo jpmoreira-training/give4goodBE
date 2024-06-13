@@ -1,28 +1,24 @@
 package com.criticalsoftware;
-
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
-
-import java.time.LocalDate;
+import org.bson.types.ObjectId;
 import java.time.LocalDateTime;
 
 public class Annoucement extends PanacheMongoEntity {
 
+    private ObjectId id;
     private Product product;
     private LocalDateTime date;
     private User userDonor;
     private User userDonee;
 
     public Annoucement() {
-
     }
 
-
-    public Annoucement(Product product, LocalDateTime date, User userDonor, User userDonee) {
+    public Annoucement(Product product, User userDonor, User userDonee) {
         this.product = product;
-        this.date = date;
+        this.date = LocalDateTime.now();
         this.userDonor = userDonor;
         this.userDonee = userDonee;
-
     }
 
     //Product
@@ -61,4 +57,12 @@ public class Annoucement extends PanacheMongoEntity {
         this.userDonee = userDonee;
     }
 
+    //Id
+    public ObjectId getId(){
+        return this.id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 }

@@ -1,8 +1,5 @@
 package com.criticalsoftware;
-
-
 import java.util.List;
-
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -19,4 +16,3 @@ public class UserRepository implements PanacheMongoRepository<User> {
     }
 
 }
-
