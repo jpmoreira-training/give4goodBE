@@ -1,5 +1,5 @@
 package com.criticalsoftware;
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
+
 import org.bson.types.ObjectId;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -54,13 +54,5 @@ public class Contact {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-    //Id
-    public ObjectId getId(){
-        return this.id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
     }
 }
