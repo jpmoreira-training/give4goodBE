@@ -5,12 +5,17 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.GET;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.ws.rs.core.Response.Status;
+import java.net.URI;
+import java.util.stream.Collectors;
 
 @Path("/users")
 
@@ -19,6 +24,24 @@ public class UserResource {
     @Inject
     private UserRepository repository;
     UserRepository userRepository;
+
+
+    @POST
+    public Response create(@Valid UserRequest userRequest)  {
+        try {
+            User user = new User(userRequest.getName(), userRequest.getDateBirth(), userRequest.getContact());
+            repository.persist(user);
+            return Response.created(new URI("/users/" + user.getId()))
+                    .entity("User created successfully with ID: " + user.getId())
+                    .build();
+        } catch (ConstraintViolationException e) {
+            String errorMessages = e.getConstraintViolations().stream().map(violation -> violation.getPropertyPath() + ": " + violation.getMessage()).collect(Collectors.joining(", "));
+
+            return Response.status(Status.BAD_REQUEST).entity("Validation error: " + errorMessages).build();
+        } catch (Exception e) {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Error creating user: " + e.getMessage()).build();
+        }
+    }
 
     //This method handles GET requests to /users/{id}.
     //It retrieves a user by its ID and returns the userResponse in the response.
