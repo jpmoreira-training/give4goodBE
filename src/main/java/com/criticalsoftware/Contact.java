@@ -1,11 +1,13 @@
 package com.criticalsoftware;
-
+import io.quarkus.mongodb.panache.PanacheMongoEntity;
+import org.bson.types.ObjectId;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-//User Data Request
+
+//User Contact
 public class Contact {
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email may not be blank")
@@ -28,15 +30,16 @@ public class Contact {
         this.address = address;
     }
 
-    // Getters and Setters
+    //email
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    //phoneNumber
     public int getPhoneNumber() {
         return phoneNumber;
     }
@@ -51,5 +54,13 @@ public class Contact {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    //Id
+    public ObjectId getId(){
+        return this.id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 }
