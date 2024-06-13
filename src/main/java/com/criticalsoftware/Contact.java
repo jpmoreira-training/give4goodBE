@@ -1,22 +1,21 @@
 package com.criticalsoftware;
-
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
+import org.bson.types.ObjectId;
 
 public class Contact extends PanacheMongoEntity {
 
+    private ObjectId id;
     private String email;
     private int phoneNumber;
     private String address;
 
     public Contact() {
-
     }
 
     public Contact(String email, int phoneNumber, String address) {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
-
     }
 
     //email
@@ -45,5 +44,12 @@ public class Contact extends PanacheMongoEntity {
     public void setAddress(String address) {
         this.address = address;
     }
+    //Id
+    public ObjectId getId(){
+        return this.id;
+    }
 
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 }

@@ -6,6 +6,8 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+import java.util.List;
 
 @Path("/users")
 
@@ -15,29 +17,33 @@ public class UserResource {
     private UserRepository repository;
 
         //This method handles GET requests to /users/{id}.
-        //It retrieves a user by its ID and returns it in the response.
+        //It retrieves a user by its ID and returns the userResponse in the response.
         @GET
         @Path("/{id}")
-        public Response get(@PathParam("id") String id){
+        public Response getById(@PathParam("id") String id){
             User user = repository.findById(new ObjectId(id));
-            return Response.ok(user).build();
+            if (user == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity("User not found.").build();
+            }
+            UserResponse userResponse = new UserResponse(user.getId(), user.getName(), user.getDateBirth(), user.getContact());
+            return Response.ok(userResponse).build();
         }
 
         //This method handles GET requests to /users.
-        //It retrieves all users entities and returns them in the response.
+        //It retrieves all users entities and returns as userResponses in the response.
         @GET
-        public Response get() {
-            return Response.ok(repository.listAll()).build();
-        }
+        public Response getAll() {
+            //Creates an empty User List
+            List<User> users = new ArrayList<>();
+            users = repository.listAll();
 
-        //his method handles GET requests to /users/search/{name}
-        //It retrieves a user by its name and returns it in the response.
-        //If no such user is found, it returns a 404 Not Found status.
-        @GET
-        @Path("/search/{name}")
-        public Response search(@PathParam("name") String name) {
-            User user = repository.findByName(name);
-            return user != null ? Response.ok(user).build() : Response.status(Response.Status.NOT_FOUND).build();
+            //Creates an empty userResponse list
+            List<UserResponse> userResponses = new ArrayList<>();
+            //For each User, a UserResponse is created and added to the list
+            for(User user: users) {
+                UserResponse userResponse = new UserResponse(user.getId(), user.getName(), user.getDateBirth(), user.getContact());
+                userResponses.add(userResponse);
+            }
+            return Response.ok(userResponses).build();
         }
-
 }

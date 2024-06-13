@@ -1,24 +1,24 @@
 package com.criticalsoftware;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
+import org.bson.types.ObjectId;
 import java.time.LocalDate;
 
 @MongoEntity(collection = "users")
 public class User extends PanacheMongoEntity {
 
+    private ObjectId id;
     private String name;
     private LocalDate dateBirth;
     private Contact contact;
 
     public User() {
-
     }
 
     public User(String name, LocalDate dateBirth, Contact contact) {
         this.name = name;
         this.dateBirth = dateBirth;
         this.contact = contact;
-
     }
 
     //name
@@ -48,8 +48,12 @@ public class User extends PanacheMongoEntity {
         this.contact = contact;
     }
 
+    //Id
+    public ObjectId getId(){
+        return this.id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 }
-
-
-
-
