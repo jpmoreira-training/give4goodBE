@@ -1,9 +1,10 @@
 package com.criticalsoftware;
+
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import org.bson.types.ObjectId;
 import java.time.LocalDateTime;
 
-public class Annoucement extends PanacheMongoEntity {
+public class Announcement extends PanacheMongoEntity {
 
     private ObjectId id;
     private Product product;
@@ -11,18 +12,20 @@ public class Annoucement extends PanacheMongoEntity {
     private User userDonor;
     private User userDonee;
 
-    public Annoucement() {
+    public Announcement() {
     }
 
-    public Annoucement(Product product, User userDonor, User userDonee) {
+    public Announcement(ObjectId id, Product product, User userDonor, User userDonee) {
+        this.id = id;
         this.product = product;
         this.date = LocalDateTime.now();
         this.userDonor = userDonor;
         this.userDonee = userDonee;
     }
 
-    //Product
-    public Product getProduct(){
+    // Getters and Setters
+
+    public Product getProduct() {
         return this.product;
     }
 
@@ -30,35 +33,31 @@ public class Annoucement extends PanacheMongoEntity {
         this.product = product;
     }
 
-    //Date
-    public LocalDateTime getdate(){
+    public LocalDateTime getDate() {
         return this.date;
     }
 
-    public void setLocalDateTime(LocalDateTime date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
-    //userDonor
-    public User getuserDonor(){
+    public User getUserDonor() {
         return this.userDonor;
     }
 
-    public void setUserDonor (User userDonor) {
+    public void setUserDonor(User userDonor) {
         this.userDonor = userDonor;
     }
 
-    //userDonee
-    public User getuserDonee(){
+    public User getUserDonee() {
         return this.userDonee;
     }
 
-    public void setUserDonee (User userDonee) {
+    public void setUserDonee(User userDonee) {
         this.userDonee = userDonee;
     }
 
-    //Id
-    public ObjectId getId(){
+    public ObjectId getId() {
         return this.id;
     }
 
