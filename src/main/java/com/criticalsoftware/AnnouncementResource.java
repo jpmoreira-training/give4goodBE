@@ -23,7 +23,7 @@ public class AnnouncementResource {
     @POST
     public Response create(@Valid AnnouncementRequest request) {
         try {
-            // Validar e buscar o userDonor do banco de dados
+            // Validate and fetch the userDonor from the database
             User userDonor = userRepository.findById(new ObjectId(request.getUserDonorId()));
             if (userDonor == null) {
                 return Response.status(Status.BAD_REQUEST)
@@ -31,27 +31,25 @@ public class AnnouncementResource {
                         .build();
             }
 
-            // Criar o produto com base nos detalhes fornecidos no request
+            // Create the product based on the details provided in the request
             Product product = new Product(
                     request.getProduct().getName(),
                     request.getProduct().getDescription(),
                     request.getProduct().getPhotoUrl(),
                     request.getProduct().getCategory()
-
             );
 
-            // Criar o anúncio com o produto e informações do usuário
+            // Create the announcement with the product and user information
             Announcement announcement = new Announcement(
                     product,
-                    userDonor.getId(), // Utilizar o ID do userDonor existente
+                    userDonor.getId(), // Use the existing userDonor ID
                     request.getDate()
-
             );
 
-            // Persistir o anúncio no repositório
+            // Persist the announcement in the repository
             announcementRepository.persist(announcement);
 
-            // Retornar resposta de criação bem-sucedida
+            // Return a successful creation response
             return Response.created(new URI("/announcements/" + announcement.getId().toHexString()))
                     .entity("Announcement created successfully with ID: " + announcement.getId().toHexString())
                     .build();
@@ -63,7 +61,7 @@ public class AnnouncementResource {
                     .entity("Validation error: " + errorMessages)
                     .build();
         } catch (Exception e) {
-            // Em caso de erro, retornar resposta de erro
+            // In case of error, return an error response
             return Response.status(Status.BAD_REQUEST)
                     .entity("Error in processing the request: " + e.getMessage())
                     .build();

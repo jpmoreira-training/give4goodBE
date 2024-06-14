@@ -9,27 +9,27 @@ import java.util.List;
 @ApplicationScoped
 public class AnnouncementRepository implements PanacheMongoRepository<Announcement> {
 
-    // Encontra um anúncio pelo ID
+    // Find an announcement by ID
     public Announcement findById(ObjectId id) {
         return find("_id", id).firstResult();
     }
 
-    // Lista todos os anúncios ordenados pela data de criação (descendente)
+    // List all announcements sorted by creation date (descending)
     public List<Announcement> listAllSortedByDate() {
         return listAll(Sort.by("date").descending());
     }
 
-    // Encontra anúncios por descrição de produto
+    // Find announcements by product description
     public List<Announcement> findByProductDescription(String description) {
         return list("product.description", description);
     }
 
-    // Encontra anúncios pelo ID do doador
+    // Find announcements by donor ID
     public List<Announcement> findByDonorId(ObjectId donorId) {
         return list("userDonorId", donorId);
     }
 
-    // Encontra anúncios pelo ID do beneficiário
+    // Find announcements by donee ID
     public List<Announcement> findByDoneeId(ObjectId doneeId) {
         if (doneeId != null) {
             return list("userDoneeId", doneeId);
