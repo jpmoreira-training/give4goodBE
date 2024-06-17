@@ -7,14 +7,14 @@ public class Announcement {
     private ObjectId id;
     private Product product;
     private ObjectId userDonorId;
+    private ObjectId userDonneeId;
     private LocalDateTime date;
 
-    public Announcement() {}
 
-    public Announcement(Product product, ObjectId userDonorId, LocalDateTime date) {
+    public Announcement(Product product, ObjectId userDonorId) {
         this.product = product;
         this.userDonorId = userDonorId;
-        this.date = date;
+        this.date = LocalDateTime.now();
     }
 
     // Getters and setters
@@ -48,5 +48,13 @@ public class Announcement {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public ObjectId getUserDonneeId() {
+        return userDonneeId;
+    }
+
+    public void setUserDonneeId(ObjectId userDonneeId) {
+        this.userDonneeId = userDonneeId;
     }
 }

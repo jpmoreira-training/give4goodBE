@@ -19,7 +19,7 @@ public class Contact {
     @NotBlank(message = "Address may not be blank")
     private String address;
 
-    public  Contact() {
+    public Contact() {
         // It doesn't necessarily need implementation here
     }
 

@@ -31,19 +31,26 @@ public class AnnouncementResource {
                         .build();
             }
 
-            // Create the product based on the details provided in the request
+            // Ensure all product fields are filled
+            if (request.getProductName() == null || request.getProductDescription() == null ||
+                    request.getProductPhotoUrl() == null || request.getProductCategory() == null) {
+                return Response.status(Status.BAD_REQUEST)
+                        .entity("All product fields must be filled.")
+                        .build();
+            }
+
+            // Create the product based on the provided details
             Product product = new Product(
-                    request.getProduct().getName(),
-                    request.getProduct().getDescription(),
-                    request.getProduct().getPhotoUrl(),
-                    request.getProduct().getCategory()
+                    request.getProductName(),
+                    request.getProductDescription(),
+                    request.getProductPhotoUrl(),
+                    request.getProductCategory()
             );
 
             // Create the announcement with the product and user information
             Announcement announcement = new Announcement(
                     product,
-                    userDonor.getId(), // Use the existing userDonor ID
-                    request.getDate()
+                    userDonor.getId() // Use the existing userDonor ID
             );
 
             // Persist the announcement in the repository

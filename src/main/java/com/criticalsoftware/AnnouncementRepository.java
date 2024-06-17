@@ -30,10 +30,11 @@ public class AnnouncementRepository implements PanacheMongoRepository<Announceme
     }
 
     // Find announcements by donee ID
-    public List<Announcement> findByDoneeId(ObjectId doneeId) {
+    public List<Announcement> findByDoneeId(ObjectId doneeId)    {
         if (doneeId != null) {
             return list("userDoneeId", doneeId);
         }
-        return list("userDoneeId is null");
+        return List.of();  // Retorna uma lista vazia apropriada
     }
 }
+

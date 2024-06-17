@@ -1,31 +1,13 @@
 package com.criticalsoftware;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import org.bson.types.ObjectId;
 
 public class Product {
     private ObjectId id;
-
-    @NotBlank(message = "Product name is mandatory")
-    @Size(max = 30, message = "Product name must be less than or equal to 30 characters")
     private String name;
-
-    @NotBlank(message = "Product description is mandatory")
-    @Size(max = 255, message = "Product description must be less than or equal to 255 characters")
     private String description;
-
-    @NotBlank(message = "Photo URL is mandatory")
-    @Pattern(regexp = "^(http|https)://.*$", message = "Photo URL must be a valid URL")
     private String photoUrl;
-
-    @NotBlank(message = "Category is mandatory")
-    @Size(max = 50, message = "Category must be less than or equal to 30  characters")
     private String category;
-
-    public Product() {
-    }
 
     public Product(String name, String description, String photoUrl, String category) {
         this.name = name;
@@ -34,7 +16,7 @@ public class Product {
         this.category = category;
     }
 
-    // Getters and setters
+    // Getters e setters
     public ObjectId getId() {
         return id;
     }
