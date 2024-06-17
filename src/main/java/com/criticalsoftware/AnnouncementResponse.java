@@ -10,17 +10,19 @@ public class AnnouncementResponse {
     private Product product;
     private LocalDateTime date;
     private ObjectId userDonorId;
+    private ObjectId userDoneeId;
 
 
-    public AnnouncementResponse(ObjectId id, Product product, ObjectId userDonorId, LocalDateTime localDateTime) {
+    public AnnouncementResponse(ObjectId id, Product product, ObjectId userDonorId,ObjectId userDoneeId) {
 
     }
 
-    public AnnouncementResponse(ObjectId id,Product product, LocalDateTime localDateTime, ObjectId userDonorId) {
+    public AnnouncementResponse(ObjectId id,Product product, LocalDateTime localDateTime, ObjectId userDonorId, ObjectId userDoneeId) {
         this.id = id;
         this.product = product;
         this.date = LocalDateTime.now();
         this.userDonorId = userDonorId;
+        this.userDoneeId = userDoneeId;
 
     }
 
@@ -56,8 +58,17 @@ public class AnnouncementResponse {
         return this.userDonorId;
     }
 
-    public void setUserDonorId(ObjectId userDonor) {
-        this.userDonorId = userDonor;
+    public void setUserDonorId(ObjectId userDonorId) {
+        this.userDonorId = userDonorId;
+    }
+
+    //userDonee
+    public ObjectId getUserDoneeId() {
+        return this.userDoneeId;
+    }
+
+    public void setUserDoneeId(ObjectId userDoneeId) {
+        this.userDoneeId = userDoneeId;
     }
 
 }

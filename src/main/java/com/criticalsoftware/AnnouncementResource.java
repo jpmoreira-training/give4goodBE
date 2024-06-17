@@ -24,7 +24,7 @@ public class AnnouncementResource {
         if (announcement == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Announcement not found.").build();
         }
-        AnnouncementResponse announcementResponse = new AnnouncementResponse(announcement.getId(),announcement.getProduct(), announcement.getLocalDateTime(),announcement.getUserDonorId());
+        AnnouncementResponse announcementResponse = new AnnouncementResponse(announcement.getId(),announcement.getProduct(), announcement.getLocalDateTime(), announcement.getUserDonorId(), announcement.getUserDoneeId());
         return Response.ok(announcementResponse).build();
     }
 
@@ -35,7 +35,7 @@ public class AnnouncementResource {
 
         List<AnnouncementResponse> announcementResponses = new ArrayList<>();
         for (Announcement announcement : announcements) {
-            AnnouncementResponse announcementResponse = new AnnouncementResponse(announcement.getId(),announcement.getProduct(), announcement.getLocalDateTime(), announcement.getUserDonorId());
+            AnnouncementResponse announcementResponse = new AnnouncementResponse(announcement.getId(),announcement.getProduct(), announcement.getLocalDateTime(), announcement.getUserDonorId(), announcement.getUserDoneeId());
             announcementResponses.add(announcementResponse);
         }
         return Response.ok(announcementResponses).build();

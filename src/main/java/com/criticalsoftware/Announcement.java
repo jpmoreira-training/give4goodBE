@@ -1,5 +1,4 @@
 package com.criticalsoftware;
-
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import org.bson.types.ObjectId;
 import java.time.LocalDateTime;
@@ -9,28 +8,28 @@ public class Announcement extends PanacheMongoEntity {
     private ObjectId id;
     private Product product;
     private LocalDateTime date;
-    private ObjectId userDonor;
+    private ObjectId userDonorId;
+    private ObjectId userDoneeId;
 
-    public Announcement() {
-    }
+    public Announcement() {}
 
-    public Announcement( Product product, ObjectId userDonor) {
+    public Announcement(Product product, ObjectId userDonorId, ObjectId userDoneeId) {
         this.product = product;
         this.date = LocalDateTime.now();
-        this.userDonor = userDonor;
+        this.userDonorId = userDonorId;
+        this.userDoneeId = userDoneeId;
     }
 
-    // Id
     public ObjectId getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(ObjectId id) {
         this.id = id;
     }
 
-    // Product
-    public Product getProduct() {
+    //Product
+    public Product getProduct(){
         return this.product;
     }
 
@@ -38,8 +37,8 @@ public class Announcement extends PanacheMongoEntity {
         this.product = product;
     }
 
-    // Date
-    public LocalDateTime getLocalDateTime() {
+    //Date
+    public LocalDateTime getdate(){
         return this.date;
     }
 
@@ -47,14 +46,26 @@ public class Announcement extends PanacheMongoEntity {
         this.date = date;
     }
 
-    // userDonor
-    public ObjectId getUserDonorId() {
-        return this.userDonor;
+    //userDonor
+    public ObjectId getUserDonorId(){
+        return this.userDonorId;
     }
 
-    public void setUserDonorId(ObjectId userDonor) {
-        this.userDonor = userDonor;
+    public void setUserDonorId (ObjectId userDonorId) {
+        this.userDonorId = userDonorId;
+    }
+
+    //userDonee
+    public ObjectId getUserDoneeId(){
+        return this.userDoneeId;
+    }
+
+    public void setUserDoneeId (ObjectId userDoneeId) {
+        this.userDoneeId = userDoneeId;
     }
 
 
+    public LocalDateTime getLocalDateTime() {
+        return this.date;
+    }
 }

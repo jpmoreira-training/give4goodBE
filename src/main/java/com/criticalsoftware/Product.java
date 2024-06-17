@@ -9,7 +9,6 @@ public class Product {
     private String description;
     private String photo;
     private String category;
-    private User userDonnor;
 
     public Product() {
     }
@@ -19,7 +18,6 @@ public class Product {
         this.description = description;
         this.photo = photo;
         this.category = category;
-        this.userDonnor = userDonnor;
     }
 
     //Name
@@ -56,15 +54,6 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    //user
-    public User getUser(){
-        return this.userDonnor;
-    }
-
-    public void setUser(User user) {
-        this.userDonnor = userDonnor;
     }
 
     //Id
