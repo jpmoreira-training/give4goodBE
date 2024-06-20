@@ -6,7 +6,6 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
-import org.bson.types.ObjectId;
 
 @Path("/announcements")
 public class AnnouncementResource {
@@ -17,65 +16,51 @@ public class AnnouncementResource {
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") String id) {
-        try {
-            // Validate ObjectId
-            if (!ObjectId.isValid(id)) {
-                return Response.status(Response.Status.BAD_REQUEST).entity("Invalid announcement ID").build();
-            }
 
-            ObjectId objectId = new ObjectId(id);
-            Announcement announcement = repository.findById(objectId);
-            if (announcement == null) {
-                return Response.status(Response.Status.NOT_FOUND).entity("Announcement not found.").build();
-            }
+        // Check if the provided ID is valid
+        if (!id.matches("[a-fA-F0-9]{24}")) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid ID format").build();
+        }
+        // Find the announcement by ID
+        Announcement announcement = repository.findById(id);
+        if (announcement == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Announcement not found.").build();
+        }
 
-            // Use the repository method to delete by ID
-            repository.deleteById(id);
+        // Use the repository method to delete by ID
+        repository.deleteById(id);
 
-            return Response.noContent().build();
-        } catch (Exception e) {
-            // Log exception for debugging
-            e.printStackTrace();
+        // Check if the announcement still exists
+        announcement = repository.findById(id);
+        if (announcement != null) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while deleting the announcement").build();
         }
+        return Response.noContent().build();
     }
 
-    // Method to update an announcement by its ID
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") String id, Product product) {
+    public Response update(@PathParam("id") String id, AnnouncementRequest announcementRequest) {
         try {
-            // Validate if the provided ID is a valid ObjectId
-            if (!ObjectId.isValid(id)) {
-                return Response.status(Response.Status.BAD_REQUEST).entity("Invalid announcement ID").build();
-            }
+        Announcement announcement = repository.findById(id);
+        // Check if the provided ID is valid
+        if (!id.matches("[a-fA-F0-9]{24}")) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid ID format").build();
+        }
+        if (announcement == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Announcement not found").build();
+        }
 
-            // Convert the string ID to ObjectId
-            ObjectId objectId = new ObjectId(id);
+        // Create a new product object with the data from the request
+        Product newProduct = new Product(announcementRequest.getId(), announcementRequest.getProductDescription(), announcementRequest.getProductPhotoUrl(), announcementRequest.getProductCategory(), announcementRequest.getProductName());
+        // Set the new product to the announcement
+        announcement.setProduct(newProduct);
 
-            // Retrieve the announcement from the repository using the ObjectId
-            Announcement announcement = repository.findById(objectId);
-            if (announcement == null) {
-                return Response.status(Response.Status.NOT_FOUND).entity("Announcement not found").build();
-            }
+        // Persist the updated announcement to the repository
+        repository.persist(announcement);
 
-            // Get the existing product from the announcement
-            Product existingProduct = announcement.getProduct();
-
-            // Update the existing product's fields with the new product's data
-            existingProduct.setCategory(product.getCategory());
-            existingProduct.setDescription(product.getDescription());
-            existingProduct.setPhotoUrl(product.getPhotoUrl());
-            existingProduct.setName(product.getName());
-
-            // Set the updated product back to the announcement
-            announcement.setProduct(existingProduct);
-
-            // Update the announcement in the repository
-            repository.update(announcement);
-
-            // Return the updated product as a response
-            return Response.ok(existingProduct).build();
+            // Return the updated announcement as a response
+            return Response.ok(announcement).build();
         } catch (Exception e) {
             // Return an internal server error response if any exception occurs
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while updating the announcement").build();

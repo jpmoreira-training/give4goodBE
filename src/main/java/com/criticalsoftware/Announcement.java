@@ -1,67 +1,30 @@
 package com.criticalsoftware;
 
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
-import org.bson.types.ObjectId;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class Announcement extends PanacheMongoEntity {
 
-    private ObjectId id;
+    private String id;
     private Product product;
     private LocalDateTime date;
     private User userDonor;
     private User userDonee;
+    private boolean isClaimed;
 
     public Announcement() {
     }
 
-    public Announcement(ObjectId id, Product product, User userDonor, User userDonee) {
+    public Announcement(String id, Product product, User userDonor, User userDonee,boolean isClaimed) {
         this.id = id;
         this.product = product;
         this.date = LocalDateTime.now();
         this.userDonor = userDonor;
         this.userDonee = userDonee;
-    }
-
-    // Getters and Setters
-
-    public Product getProduct() {
-        return this.product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public LocalDateTime getDate() {
-        return this.date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public User getUserDonor() {
-        return this.userDonor;
-    }
-
-    public void setUserDonor(User userDonor) {
-        this.userDonor = userDonor;
-    }
-
-    public User getUserDonee() {
-        return this.userDonee;
-    }
-
-    public void setUserDonee(User userDonee) {
-        this.userDonee = userDonee;
-    }
-
-    public ObjectId getId() {
-        return this.id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
+        this.isClaimed = isClaimed;
     }
 }
