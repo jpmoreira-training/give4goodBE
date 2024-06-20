@@ -42,27 +42,28 @@ public class AnnouncementResource {
     @Path("/{id}")
     public Response update(@PathParam("id") String id, AnnouncementRequest announcementRequest) {
         try {
-        Announcement announcement = repository.findById(id);
-        // Check if the provided ID is valid
-        if (!id.matches("[a-fA-F0-9]{24}")) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid ID format").build();
-        }
-        if (announcement == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Announcement not found").build();
-        }
+            Announcement announcement = repository.findById(id);
+            if (!id.matches("[a-fA-F0-9]{24}")) {
+                return Response.status(Response.Status.BAD_REQUEST).entity("Invalid ID format").build();
+            }
 
-        // Create a new product object with the data from the request
-        Product newProduct = new Product(announcementRequest.getId(), announcementRequest.getProductDescription(), announcementRequest.getProductPhotoUrl(), announcementRequest.getProductCategory(), announcementRequest.getProductName());
-        // Set the new product to the announcement
-        announcement.setProduct(newProduct);
+            if (announcement == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity("Announcement not found").build();
+            }
 
-        // Persist the updated announcement to the repository
-        repository.persist(announcement);
+            // Check if the product details are present in the request
+            if (announcementRequest.getProductName() == null || announcementRequest.getProductDescription() == null || announcementRequest.getProductPhotoUrl() == null || announcementRequest.getProductCategory() == null) {
+                return Response.status(Response.Status.BAD_REQUEST).entity("Product details are missing").build();
+            }
 
-            // Return the updated announcement as a response
+            Product newProduct = new Product(announcementRequest.getId(), announcementRequest.getProductDescription(), announcementRequest.getProductPhotoUrl(), announcementRequest.getProductCategory(), announcementRequest.getProductName());
+            announcement.setProduct(newProduct);
+
+            // Update the announcement in the repository
+            repository.persistOrUpdate(announcement);
+
             return Response.ok(announcement).build();
         } catch (Exception e) {
-            // Return an internal server error response if any exception occurs
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while updating the announcement").build();
         }
     }
