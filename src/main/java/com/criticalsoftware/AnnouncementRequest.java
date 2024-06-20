@@ -1,12 +1,16 @@
 package com.criticalsoftware;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class AnnouncementRequest {
+
+    @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "Product name must only contain alphanumeric characters and spaces")
     @NotBlank(message = "User donor ID is mandatory and cannot be blank")
     private String userDonorId;
 
+    @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "Product name must only contain alphanumeric characters and spaces")
     @NotBlank(message = "Product name is mandatory and cannot be blank")
     @Size(max = 30, message = "Product name must be less than or equal to 30 characters")
     private String productName;
@@ -17,14 +21,15 @@ public class AnnouncementRequest {
 
     @NotBlank(message = "Photo URL is mandatory and cannot be blank")
     @Size(max = 200, message = "Photo URL must be less than or equal to 200 characters")
+    @Pattern(regexp = "^(http|https)://.*$", message = "Photo URL must be a valid URL")
     private String productPhotoUrl;
 
     @NotBlank(message = "Category is mandatory and cannot be blank")
-    @Size(max = 255 , message = "Category must be less than or equal to 255 characters")
+    @Size(max = 255, message = "Category must be less than or equal to 255 characters")
     private String productCategory;
 
-    // Constructors
-    public AnnouncementRequest() {}
+    public AnnouncementRequest() {
+    }
 
     public AnnouncementRequest(String userDonorId, String productName, String productDescription, String productPhotoUrl, String productCategory) {
         this.userDonorId = userDonorId;

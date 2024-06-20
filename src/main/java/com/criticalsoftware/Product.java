@@ -1,13 +1,13 @@
 package com.criticalsoftware;
 
-import org.bson.types.ObjectId;
-
 public class Product {
-    private ObjectId id;
     private String name;
     private String description;
     private String photoUrl;
     private String category;
+
+    public Product() {
+    }
 
     public Product(String name, String description, String photoUrl, String category) {
         this.name = name;
@@ -16,15 +16,7 @@ public class Product {
         this.category = category;
     }
 
-    // Getters e setters
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
-
+    // Getters e Setters
     public String getName() {
         return name;
     }

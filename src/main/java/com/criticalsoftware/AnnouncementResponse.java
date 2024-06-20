@@ -1,28 +1,28 @@
 package com.criticalsoftware;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.bson.types.ObjectId;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-public class Announcement {
+public class AnnouncementResponse {
+
     private String id;
     private Product product;
     private ObjectId userDonorId;
     private ObjectId userDonneeId;
     private LocalDateTime date;
 
-    public Announcement() {
+    public AnnouncementResponse() {
     }
 
-    public Announcement(Product product, ObjectId userDonorId) {
+    public AnnouncementResponse(String id, Product product, ObjectId userDonorId, ObjectId userDonneeId, LocalDateTime date) {
+        this.id = id;
         this.product = product;
         this.userDonorId = userDonorId;
-        this.date = LocalDateTime.now();
+        this.userDonneeId = userDonneeId;
+        this.date = date;
     }
 
+    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -47,19 +47,19 @@ public class Announcement {
         this.userDonorId = userDonorId;
     }
 
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
     public ObjectId getUserDonneeId() {
         return userDonneeId;
     }
 
     public void setUserDonneeId(ObjectId userDonneeId) {
         this.userDonneeId = userDonneeId;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 }
