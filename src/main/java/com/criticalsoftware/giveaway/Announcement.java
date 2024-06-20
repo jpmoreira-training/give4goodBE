@@ -1,30 +1,37 @@
-package com.criticalsoftware;
+package com.criticalsoftware.giveaway;
+
+import com.criticalsoftware.Product;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import org.bson.types.ObjectId;
 import java.time.LocalDateTime;
 
 public class Announcement extends PanacheMongoEntity {
 
-    private ObjectId id;
+    private String id;
     private Product product;
     private LocalDateTime date;
     private ObjectId userDonorId;
     private ObjectId userDoneeId;
+    private boolean claimed;
+    private String claimedBy;
 
     public Announcement() {}
 
-    public Announcement(Product product, ObjectId userDonorId, ObjectId userDoneeId) {
+    public Announcement(String Id, Product product, ObjectId userDonorId, ObjectId userDoneeId, boolean claimed, String claimedBy) {
+        this.id = id;
         this.product = product;
         this.date = LocalDateTime.now();
         this.userDonorId = userDonorId;
         this.userDoneeId = userDoneeId;
+        this.claimed = claimed;
+        this.claimedBy = claimedBy;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -42,8 +49,8 @@ public class Announcement extends PanacheMongoEntity {
         return this.date;
     }
 
-    public void setLocalDateTime(LocalDateTime date) {
-        this.date = date;
+    public LocalDateTime getLocalDateTime() {
+        return this.date;
     }
 
     //userDonor
@@ -64,8 +71,21 @@ public class Announcement extends PanacheMongoEntity {
         this.userDoneeId = userDoneeId;
     }
 
-
-    public LocalDateTime getLocalDateTime() {
-        return this.date;
+    //Used for boolean properties representing states as true or false.
+    public boolean isClaimed() {
+        return claimed;
     }
+
+    public void setClaimed(boolean claimed) {
+        this.claimed = claimed;
+    }
+
+    public String getClaimedBy() {
+        return claimedBy;
+    }
+
+    public void setClaimedBy(String claimedBy) {
+        this.claimedBy = claimedBy;
+    }
+
 }

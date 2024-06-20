@@ -1,7 +1,6 @@
-package com.criticalsoftware;
+package com.criticalsoftware.giveaway;
 
 import jakarta.ws.rs.core.Response;
-import org.bson.types.ObjectId;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -20,7 +19,7 @@ public class AnnouncementResource {
     @GET
     @Path("/{id}")
     public Response getById(@PathParam("id") String id) {
-        Announcement announcement = repository.findById(new ObjectId(id));
+        Announcement announcement = repository.findById(id);
         if (announcement == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Announcement not found.").build();
         }

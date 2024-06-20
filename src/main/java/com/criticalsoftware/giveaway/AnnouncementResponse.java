@@ -1,23 +1,24 @@
-package com.criticalsoftware;
+package com.criticalsoftware.giveaway;
 
+import com.criticalsoftware.Product;
 import org.bson.types.ObjectId;
 import java.time.LocalDateTime;
 
 //Announcement Response
 public class AnnouncementResponse {
 
-    private ObjectId id;
+    private String id;
     private Product product;
     private LocalDateTime date;
     private ObjectId userDonorId;
     private ObjectId userDoneeId;
 
 
-    public AnnouncementResponse(ObjectId id, Product product, ObjectId userDonorId,ObjectId userDoneeId) {
+    public AnnouncementResponse(String id, Product product, ObjectId userDonorId,ObjectId userDoneeId) {
 
     }
 
-    public AnnouncementResponse(ObjectId id,Product product, LocalDateTime localDateTime, ObjectId userDonorId, ObjectId userDoneeId) {
+    public AnnouncementResponse(String id,Product product, LocalDateTime localDateTime, ObjectId userDonorId, ObjectId userDoneeId) {
         this.id = id;
         this.product = product;
         this.date = LocalDateTime.now();
@@ -27,11 +28,11 @@ public class AnnouncementResponse {
     }
 
     // Getters and Setters
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
