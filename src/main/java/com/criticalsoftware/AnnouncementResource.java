@@ -51,9 +51,12 @@ public class AnnouncementResource {
                 return Response.status(Response.Status.NOT_FOUND).entity("Announcement not found").build();
             }
 
-            // Check if the product details are present in the request
-            if (announcementRequest.getProductName() == null || announcementRequest.getProductDescription() == null || announcementRequest.getProductPhotoUrl() == null || announcementRequest.getProductCategory() == null) {
-                return Response.status(Response.Status.BAD_REQUEST).entity("Product details are missing").build();
+            // Check if the product details are present and not just spaces in the request
+            if (announcementRequest.getProductName() == null || announcementRequest.getProductName().trim().isEmpty() ||
+                    announcementRequest.getProductDescription() == null || announcementRequest.getProductDescription().trim().isEmpty() ||
+                    announcementRequest.getProductPhotoUrl() == null || announcementRequest.getProductPhotoUrl().trim().isEmpty() ||
+                    announcementRequest.getProductCategory() == null || announcementRequest.getProductCategory().trim().isEmpty()) {
+                return Response.status(Response.Status.BAD_REQUEST).entity("Product details are missing or empty").build();
             }
 
             Product newProduct = new Product(announcementRequest.getId(), announcementRequest.getProductDescription(), announcementRequest.getProductPhotoUrl(), announcementRequest.getProductCategory(), announcementRequest.getProductName());
