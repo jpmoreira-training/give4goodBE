@@ -13,11 +13,7 @@ public class AnnouncementService {
     @Inject
     AnnouncementRepository announcementRepository;
 
-    /**
-     * Retrieves announcements by donor ID.
-     * @param donorId The donor's ID.
-     * @return List of announcement responses.
-     */
+    // Retrieves announcements by donor ID
     public List<AnnouncementResponse> getAnnouncementsByDonorId(String donorId) {
         ObjectId donorObjectId = new ObjectId(donorId);
         return announcementRepository.findByDonorId(donorObjectId).stream()
@@ -25,11 +21,7 @@ public class AnnouncementService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Retrieves announcements by donee ID.
-     * @param doneeId The donee's ID.
-     * @return List of announcement responses.
-     */
+    // Retrieves announcements by donee ID
     public List<AnnouncementResponse> getAnnouncementsByDoneeId(String doneeId) {
         ObjectId doneeObjectId = new ObjectId(doneeId);
         return announcementRepository.findByDoneeId(doneeObjectId).stream()
@@ -37,12 +29,7 @@ public class AnnouncementService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Retrieves announcements by donor and donee ID.
-     * @param donorId The donor's ID.
-     * @param doneeId The donee's ID.
-     * @return List of announcement responses.
-     */
+    // Retrieves announcements by donor and donee ID
     public List<AnnouncementResponse> getAnnouncementsByDonorAndDoneeId(String donorId, String doneeId) {
         ObjectId donorObjectId = new ObjectId(donorId);
         ObjectId doneeObjectId = new ObjectId(doneeId);
@@ -51,11 +38,7 @@ public class AnnouncementService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Maps an Announcement entity to an AnnouncementResponse.
-     * @param announcement The Announcement entity.
-     * @return The AnnouncementResponse.
-     */
+    // Maps an Announcement entity to an AnnouncementResponse
     private AnnouncementResponse mapToResponse(Announcement announcement) {
         return new AnnouncementResponse(
                 announcement.getId(),
