@@ -11,7 +11,7 @@ public class Announcement {
     private String id;
     private Product product;
     private ObjectId userDonorId;
-    private ObjectId userDonneeId;
+    private ObjectId userDoneeId;
     private LocalDateTime date;
 
     public Announcement() {
@@ -55,11 +55,11 @@ public class Announcement {
         this.date = date;
     }
 
-    public ObjectId getUserDonneeId() {
-        return userDonneeId;
+    public ObjectId getUserDoneeId() {
+        return userDoneeId;
     }
 
-    public void setUserDonneeId(ObjectId userDonneeId) {
-        this.userDonneeId = userDonneeId;
+    public void setUserDoneeId(ObjectId userDoneeId) {
+        this.userDoneeId = userDoneeId;
     }
 }

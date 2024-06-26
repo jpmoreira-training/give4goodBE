@@ -28,15 +28,9 @@ public class AnnouncementResource {
     @Inject
     private UserRepository userRepository;
 
-    /**
-     * Creates a new announcement.
-     * @param request The announcement request data.
-     * @return The created announcement response.
-     */
     @POST
     public Response create(@Valid AnnouncementRequest request) {
         try {
-            // Validate and fetch the user donor from the database
             User userDonor = userRepository.findById(new ObjectId(request.getUserDonorId()));
             if (userDonor == null) {
                 return Response.status(Status.BAD_REQUEST)
@@ -44,14 +38,12 @@ public class AnnouncementResource {
                         .build();
             }
 
-            // Validate all product fields
             if (isProductFieldsEmpty(request)) {
                 return Response.status(Status.BAD_REQUEST)
                         .entity("All product fields must be filled.")
                         .build();
             }
 
-            // Create the product based on the provided details
             Product product = new Product(
                     request.getProductName(),
                     request.getProductDescription(),
@@ -59,30 +51,26 @@ public class AnnouncementResource {
                     request.getProductCategory()
             );
 
-            // Create the announcement with the product and user information
             Announcement announcement = new Announcement(
                     product,
                     userDonor.getId()
+
             );
 
-            // Generate a new String ID for the announcement
             announcement.setId(new ObjectId().toString());
 
-            // Persist the announcement in the repository
             announcementRepository.persist(announcement);
 
-            // Create a response map
             Map<String, Object> responseMap = new HashMap<>();
             responseMap.put("message", "Announcement created successfully with ID: " + announcement.getId());
             responseMap.put("announcement", new AnnouncementResponse(
                     announcement.getId(),
                     announcement.getProduct(),
                     announcement.getUserDonorId(),
-                    announcement.getUserDonneeId(),
+                    announcement.getUserDoneeId(),
                     announcement.getDate()
             ));
 
-            // Return a successful creation response
             return Response.created(new URI("/announcements/" + announcement.getId()))
                     .entity(responseMap)
                     .build();
@@ -105,16 +93,16 @@ public class AnnouncementResource {
                 request.getProductPhotoUrl() == null || request.getProductCategory() == null;
     }
 
-    /**
-     * Retrieves announcements by donor ID.
-     * @param donorId The donor's ID.
-     * @return List of announcements.
-     */
     @GET
     @Path("/donor/{donorId}")
     public Response getByDonorId(@PathParam("donorId") String donorId) {
         try {
             List<AnnouncementResponse> announcements = announcementService.getAnnouncementsByDonorId(donorId);
+            if (announcements == null || announcements.isEmpty()) {
+                return Response.status(Status.NOT_FOUND)
+                        .entity("No announcements found for the given donor ID.")
+                        .build();
+            }
             return Response.ok(announcements).build();
         } catch (Exception e) {
             return Response.status(Status.INTERNAL_SERVER_ERROR)
@@ -123,16 +111,16 @@ public class AnnouncementResource {
         }
     }
 
-    /**
-     * Retrieves announcements by donee ID.
-     * @param doneeId The donee's ID.
-     * @return List of announcements.
-     */
     @GET
     @Path("/donee/{doneeId}")
     public Response getByDoneeId(@PathParam("doneeId") String doneeId) {
         try {
             List<AnnouncementResponse> announcements = announcementService.getAnnouncementsByDoneeId(doneeId);
+            if (announcements == null || announcements.isEmpty()) {
+                return Response.status(Status.NOT_FOUND)
+                        .entity("No announcements found for the given donee ID.")
+                        .build();
+            }
             return Response.ok(announcements).build();
         } catch (Exception e) {
             return Response.status(Status.INTERNAL_SERVER_ERROR)
@@ -141,12 +129,6 @@ public class AnnouncementResource {
         }
     }
 
-    /**
-     * Retrieves announcements by donor and donee IDs.
-     * @param donorId The donor's ID.
-     * @param doneeId The donee's ID.
-     * @return List of announcements.
-     */
     @GET
     @Path("/donor/{donorId}/donee/{doneeId}")
     public Response getByDonorAndDoneeId(@PathParam("donorId") String donorId, @PathParam("doneeId") String doneeId) {

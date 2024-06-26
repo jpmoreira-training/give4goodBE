@@ -44,7 +44,7 @@ public class AnnouncementService {
                 announcement.getId(),
                 announcement.getProduct(),
                 announcement.getUserDonorId(),
-                announcement.getUserDonneeId(),
+                announcement.getUserDoneeId(),
                 announcement.getDate()
         );
     }

@@ -8,17 +8,17 @@ public class AnnouncementResponse {
     private String id;
     private Product product;
     private ObjectId userDonorId;
-    private ObjectId userDonneeId;
+    private ObjectId userDoneeId;
     private LocalDateTime date;
 
     public AnnouncementResponse() {
     }
 
-    public AnnouncementResponse(String id, Product product, ObjectId userDonorId, ObjectId userDonneeId, LocalDateTime date) {
+    public AnnouncementResponse(String id, Product product, ObjectId userDonorId, ObjectId userDoneeId, LocalDateTime date) {
         this.id = id;
         this.product = product;
         this.userDonorId = userDonorId;
-        this.userDonneeId = userDonneeId;
+        this.userDoneeId = userDoneeId;
         this.date = date;
     }
 
@@ -47,12 +47,12 @@ public class AnnouncementResponse {
         this.userDonorId = userDonorId;
     }
 
-    public ObjectId getUserDonneeId() {
-        return userDonneeId;
+    public ObjectId getUserDoneeId() {
+        return userDoneeId;
     }
 
-    public void setUserDonneeId(ObjectId userDonneeId) {
-        this.userDonneeId = userDonneeId;
+    public void setUserDoneeId(ObjectId userDoneeId) {
+        this.userDoneeId = userDoneeId;
     }
 
     public LocalDateTime getDate() {
