@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public class AnnouncementRequest {
 
+    // Fields
     @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "Product name must only contain alphanumeric characters and spaces")
     @NotBlank(message = "User donor ID is mandatory and cannot be blank")
     private String userDonorId;

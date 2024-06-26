@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class AnnouncementService {
 
+    // Injects the AnnouncementRepository
     @Inject
     AnnouncementRepository announcementRepository;
 

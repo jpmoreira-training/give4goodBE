@@ -23,6 +23,7 @@ public class Announcement {
         this.date = LocalDateTime.now();
     }
 
+    // Getters and Setters
     public String getId() {
         return id;
     }

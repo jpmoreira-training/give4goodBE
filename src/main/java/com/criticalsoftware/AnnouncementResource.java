@@ -28,6 +28,7 @@ public class AnnouncementResource {
     @Inject
     private UserRepository userRepository;
 
+    // Create an announcement
     @POST
     public Response create(@Valid AnnouncementRequest request) {
         try {
@@ -93,6 +94,7 @@ public class AnnouncementResource {
                 request.getProductPhotoUrl() == null || request.getProductCategory() == null;
     }
 
+    // Get announcements by donor ID
     @GET
     @Path("/donor/{donorId}")
     public Response getByDonorId(@PathParam("donorId") String donorId) {
@@ -111,6 +113,7 @@ public class AnnouncementResource {
         }
     }
 
+    // Get announcements by donee ID
     @GET
     @Path("/donee/{doneeId}")
     public Response getByDoneeId(@PathParam("doneeId") String doneeId) {
@@ -129,6 +132,7 @@ public class AnnouncementResource {
         }
     }
 
+    // Get announcements by donor and donee ID
     @GET
     @Path("/donor/{donorId}/donee/{doneeId}")
     public Response getByDonorAndDoneeId(@PathParam("donorId") String donorId, @PathParam("doneeId") String doneeId) {

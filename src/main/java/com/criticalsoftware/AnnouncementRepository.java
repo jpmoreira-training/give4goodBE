@@ -4,9 +4,9 @@ import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.bson.types.ObjectId;
-
 import java.util.List;
 
+// Repository for the Announcement entity
 @ApplicationScoped
 public class AnnouncementRepository implements PanacheMongoRepository<Announcement> {
 

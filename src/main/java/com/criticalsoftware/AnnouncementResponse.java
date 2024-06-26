@@ -14,6 +14,8 @@ public class AnnouncementResponse {
     public AnnouncementResponse() {
     }
 
+
+    // Constructor
     public AnnouncementResponse(String id, Product product, ObjectId userDonorId, ObjectId userDoneeId, LocalDateTime date) {
         this.id = id;
         this.product = product;
