@@ -1,6 +1,5 @@
-package com.criticalsoftware.giveaway;
+package com.criticalsoftware;
 
-import com.criticalsoftware.Product;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDateTime;

@@ -1,6 +1,5 @@
-package com.criticalsoftware.Claim;
+package com.criticalsoftware;
 
-import com.criticalsoftware.giveaway.Announcement;
 import io.quarkus.mongodb.panache.PanacheMongoRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;

@@ -1,9 +1,8 @@
-package com.criticalsoftware.Claim;
+package com.criticalsoftware;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
-import org.bson.types.ObjectId;
 
 @Path("/announcement-claims")
 public class AnnouncementClaimResource {
