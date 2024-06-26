@@ -5,6 +5,7 @@ import java.util.List;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
+import org.bson.types.ObjectId;
 
 //REPOSITORY
 @ApplicationScoped
@@ -22,11 +23,11 @@ public class AnnouncementRepository implements PanacheMongoRepository<Announceme
         return listAll(Sort.by("date").descending());
     }
 
-    public List<Announcement> findByDonor(String donorName) {
+    public List<Announcement> findByDonor(ObjectId donorName) {
         return find("userDonor.name", donorName).list();
     }
 
-    public List<Announcement> findByDonee(String doneeName) {
+    public List<Announcement> findByDonee(ObjectId doneeName) {
         return find("userDonee.name", doneeName).list();
     }
 

@@ -2,6 +2,7 @@ package com.criticalsoftware.giveaway;
 
 import com.criticalsoftware.Product;
 import org.bson.types.ObjectId;
+
 import java.time.LocalDateTime;
 
 //Announcement Response
@@ -14,11 +15,11 @@ public class AnnouncementResponse {
     private ObjectId userDoneeId;
 
 
-    public AnnouncementResponse(String id, Product product, ObjectId userDonorId,ObjectId userDoneeId) {
+    public AnnouncementResponse(String id, Product product, String userDonorId,String userDoneeId) {
 
     }
 
-    public AnnouncementResponse(String id,Product product, LocalDateTime localDateTime, ObjectId userDonorId, ObjectId userDoneeId) {
+    public AnnouncementResponse(String id, Product product, LocalDateTime date, ObjectId userDonorId, ObjectId userDoneeId) {
         this.id = id;
         this.product = product;
         this.date = LocalDateTime.now();
@@ -46,11 +47,11 @@ public class AnnouncementResponse {
     }
 
     //Date
-    public LocalDateTime getLocalDateTime() {
+    public LocalDateTime getDate() {
         return this.date;
     }
 
-    public void setLocalDateTime(LocalDateTime date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

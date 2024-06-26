@@ -1,5 +1,6 @@
 package com.criticalsoftware;
 
+import com.criticalsoftware.users.User;
 import org.bson.types.ObjectId;
 
 public class Product {
