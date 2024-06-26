@@ -3,6 +3,8 @@ package com.criticalsoftware;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -12,19 +14,17 @@ public class Announcement extends PanacheMongoEntity {
     private String id;
     private Product product;
     private LocalDateTime date;
-    private User userDonor;
-    private User userDonee;
-    private boolean isClaimed;
+    private ObjectId userDonorId;
+    private ObjectId userDoneeId;
 
     public Announcement() {
     }
 
-    public Announcement(String id, Product product, User userDonor, User userDonee,boolean isClaimed) {
+    public Announcement(String id, Product product, ObjectId userDonorId, ObjectId userDoneeId) {
         this.id = id;
         this.product = product;
         this.date = LocalDateTime.now();
-        this.userDonor = userDonor;
-        this.userDonee = userDonee;
-        this.isClaimed = isClaimed;
+        this.userDonorId = userDonorId;
+        this.userDoneeId = userDoneeId;
     }
 }
